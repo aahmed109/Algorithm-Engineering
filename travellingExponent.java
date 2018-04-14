@@ -3,6 +3,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.sqrt;
+
 /**
  * Created by Ahmed on 12/04/2018 at 12:26 PM.
  */
@@ -10,7 +13,7 @@ import java.util.Scanner;
 class nodeArray{
     private int len = 1;
     private nodes[] nodes = new nodes[len];
-    private int cost = 0;
+    private double cost = 0.0;
     nodeArray(int len, nodes[] nodes){
         this.len = len;
         this.nodes = nodes;
@@ -42,22 +45,22 @@ class nodeArray{
     nodes[] getNodes(){
         return nodes;
     }
-    private int absolute(int n){
-        if(n < 0) return -n;
-        return n;
+
+    double distance(nodes node1, nodes node2){
+        double xCord = abs(node1.getX() - node2.getX()) * abs(node1.getX() - node2.getX());
+        double yCord = abs(node1.getY() - node2.getY()) * abs(node1.getY() - node2.getY());
+
+        return sqrt(xCord + yCord);
     }
-    int distance(nodes node1, nodes node2){
-        return (absolute(node1.getX() - node2.getX()) + absolute(node1.getY() - node2.getY()));
-    }
-    private int measureCost(){
-        int c = 0;
+    private double measureCost(){
+        double c = 0.0;
         for(int i = 0; i < len - 1; i++){
             c += distance(nodes[i], nodes[i + 1]);
         }
         return c;
     }
 
-    int getCost(){
+    double getCost(){
         return cost;
     }
 
@@ -82,7 +85,7 @@ class nodes{
 }
 
 public class travellingExponent {
-    private static int minValue = 9999;
+    private static double minValue = 9999.0;
     private static nodeArray minNode = new nodeArray();
     private static nodeArray finalize(nodeArray nodeArray, nodes sourceNode){
         nodes[] q = nodeArray.getNodes();
@@ -140,7 +143,7 @@ public class travellingExponent {
     }
 
     public static void main(String[] args) {
-        String filename = "src/exactExponent.txt";
+        String filename = "src/testCase.txt";
         //String filename = "src/branchAndBound.txt";
         nodeArray nodeArray = null;
         try {
@@ -170,8 +173,6 @@ public class travellingExponent {
         System.out.println("(" + minNode.getNodes()[minNode.getLen() - 1].getX() + ", " + minNode.getNodes()[minNode.getLen() - 1].getY() + ")");
         System.out.println("COST = " + minValue);
 
-        long endTime   = System.nanoTime();
-        long totalTime = endTime - startTime;
-        System.out.println(totalTime/1000000000.0);
+        System.out.println("Run Time = " + (System.nanoTime() - startTime)/1000000000.0 + " sec");
     }
 }

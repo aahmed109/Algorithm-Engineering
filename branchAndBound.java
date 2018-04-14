@@ -8,14 +8,14 @@ import java.util.Scanner;
  * Created by Ahmed on 13/04/2018 at 12:49 AM.
  */
 public class branchAndBound {
-    private static int finalResult = 9999;
+    private static double finalResult = 9999;
     private static nodeArray finalNodes;
     private static boolean[] visited;
-    private static int firstMin(nodeArray nodeArray, int n){
-        int min = 9999;
+    private static double firstMin(nodeArray nodeArray, int n){
+        double min = 9999;
         nodes inspect = nodeArray.getNodes()[n];
         for(int k = 0; k < nodeArray.getLen(); k++){
-            int dist =  nodeArray.distance(inspect, nodeArray.getNodes()[k]);
+            double dist =  nodeArray.distance(inspect, nodeArray.getNodes()[k]);
             if(min > dist && n != k){
                 min = dist;
             }
@@ -24,12 +24,12 @@ public class branchAndBound {
         return min;
     }
 
-    private static int secondMin(nodeArray nodeArray, int n){
-        int first = 9999;
-        int second = 9999;
+    private static double secondMin(nodeArray nodeArray, int n){
+        double first = 9999;
+        double second = 9999;
         nodes inspect = nodeArray.getNodes()[n];
         for(int i = 0; i < nodeArray.getLen(); i++){
-            int dist =  nodeArray.distance(inspect, nodeArray.getNodes()[i]);
+            double dist =  nodeArray.distance(inspect, nodeArray.getNodes()[i]);
             if(n == i){
                 continue;
             }
@@ -72,8 +72,8 @@ public class branchAndBound {
 
     private static void TSPRec(nodeArray nodeArray, int currentBound, int currentWeight, int level, nodeArray currentPath){
         if(level == nodeArray.getLen()){
-            if(nodeArray.distance(currentPath.getNodes()[level - 1], currentPath.getNodes()[0]) != 0){
-                int currentResult = currentWeight + currentPath.distance(currentPath.getNodes()[level - 1], currentPath.getNodes()[0]);
+            if(nodeArray.distance(currentPath.getNodes()[level - 1], currentPath.getNodes()[0]) > 0.0009){
+                double currentResult = currentWeight + currentPath.distance(currentPath.getNodes()[level - 1], currentPath.getNodes()[0]);
                 if(currentResult < finalResult){
                     //nodes[] nodeArray1 = nodeArray.getNodes().clone();
                     //System.arraycopy(nodeArray1, 0, finalNodes.getNodes(), 0, nodeArray.getLen());
@@ -86,7 +86,7 @@ public class branchAndBound {
         }
 
         for(int i = 0; i < nodeArray.getLen(); i++){
-            if(!visited[i] && nodeArray.distance(nodeArray.getNodes()[i], currentPath.getNodes()[level - 1]) != 0){
+            if(!visited[i] && nodeArray.distance(nodeArray.getNodes()[i], currentPath.getNodes()[level - 1]) > 0.0009){
                 //System.out.println(nodeArray.distance(nodeArray.getNodes()[i], currentPath.getNodes()[level - 1]));
                 int temp = currentBound;
                 currentWeight += nodeArray.distance(nodeArray.getNodes()[i], currentPath.getNodes()[level - 1]);
