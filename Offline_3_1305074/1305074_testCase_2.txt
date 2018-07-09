@@ -1,0 +1,25 @@
+delete 1
+insert 1
+insert 3
+search 45
+insert 45
+insert 63
+insert 5
+insert 23
+search 45
+delete 3
+delete 64
+insert 98
+insert 88
+insert 123
+insert 50
+insert 2
+delete 123
+search 123
+insert 85
+insert 31
+insert 455
+insert 65
+search 23
+delete 123
+##

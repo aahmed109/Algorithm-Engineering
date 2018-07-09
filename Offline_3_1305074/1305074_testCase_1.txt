@@ -1,0 +1,16 @@
+Insert 5626
+Insert 56
+Insert 853
+Insert 85
+delete 56
+Search 853
+Search 56
+Insert 456
+Insert 78
+Insert 4458
+delete 5626
+Insert 652
+Insert 760
+search 78
+Insert 450
+##
